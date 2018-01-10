@@ -1,0 +1,11 @@
+* 我的emacs配置
+** 版本
+Emacs 24.5.1 (Org mode 8.2.10)
+** 位置
+: ~/.emacs.d/
+** 必需文件列表
+init.el
+myinit.el
+myinit.org
+cnfonts/
+
