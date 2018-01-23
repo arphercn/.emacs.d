@@ -1,3 +1,5 @@
+
+
 * Some Trick
 ** 通过init.el myinit.org可以完成配置加载, 出错时重启
 ** C-c C-c 失败时, rm -rf .emacs/elpa/org* 可解决
@@ -780,18 +782,18 @@
 * evil
 #+BEGIN_SRC emacs-lisp
 
-(add-to-list 'load-path "~/.emacs.d/myfiles/evil")
-(require 'evil)
-(evil-mode -1)
+;;(add-to-list 'load-path "~/.emacs.d/myfiles/evil")
+;;(require 'evil)
+;;(evil-mode -1)
 
-;;(setq evil-toggle-key "")	; remove default evil-toggle-key C-z, manually setup later
-(setq evil-want-C-i-jump nil)	; don't bind [tab] to evil-jump-forward
+;;;;(setq evil-toggle-key "")	; remove default evil-toggle-key C-z, manually setup later
+;;(setq evil-want-C-i-jump nil)	; don't bind [tab] to evil-jump-forward
 
 ;; remove all keybindings from insert-state keymap, use emacs-state when editing
-(setcdr evil-insert-state-map nil)
+;;(setcdr evil-insert-state-map nil)
     
 ;; ESC to switch back normal-state
-(define-key evil-insert-state-map [escape] 'evil-normal-state)
+;;(define-key evil-insert-state-map [escape] 'evil-normal-state)
  
 
 #+END_SRC

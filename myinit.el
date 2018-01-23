@@ -1,4 +1,3 @@
-
 ;; (use-package org-bullets    ;; org-mode 美化
   ;;   :ensure t
   ;;   :config
@@ -43,37 +42,37 @@
   (defun load-if-exists (f)
     "load the elisp file only if it exists and is readable"
     (if (file-readable-p f)
-        (load-file f)))
+	(load-file f)))
 
   (load-if-exists "~/.emacs.d/myfiles/auto-save.el")
   (load-if-exists "~/.emacs.d/myfiles/tmp-test.el")
 
 (global-set-key (kbd "\e\em")
-              (lambda () (interactive) (find-file "~/.emacs.d/myinit.org")))
+	      (lambda () (interactive) (find-file "~/.emacs.d/myinit.org")))
 
 (global-set-key (kbd "\e\es")
-              (lambda () (interactive) (find-file "~/scheduled/scheduled.org")))
+	      (lambda () (interactive) (find-file "~/scheduled/scheduled.org")))
 
 (global-set-key (kbd "\e\ep")
-              (lambda () (interactive) (find-file "~/org-my/projects.org")))
+	      (lambda () (interactive) (find-file "~/org-my/projects.org")))
 
 (global-set-key (kbd "\e\ei")
-              (lambda () (interactive) (find-file "~/org-my/idea.org")))
+	      (lambda () (interactive) (find-file "~/org-my/idea.org")))
 
 (global-set-key (kbd "\e\el")
-              (lambda () (interactive) (find-file "~/org-my/log.org")))
+	      (lambda () (interactive) (find-file "~/org-my/log.org")))
 
 (global-set-key (kbd "\e\eb")
-              (lambda () (interactive) (find-file "~/org-my/back.org")))
+	      (lambda () (interactive) (find-file "~/org-my/back.org")))
 
 (global-set-key (kbd "\e\en")
-              (lambda () (interactive) (find-file "~/org/note.org")))
+	      (lambda () (interactive) (find-file "~/org/note.org")))
 
 (global-set-key (kbd "\e\ek")
-              (lambda () (interactive) (find-file "~/org/keymap.org")))
+	      (lambda () (interactive) (find-file "~/org/keymap.org")))
 
 (global-set-key (kbd "\e\eo")
-              (lambda () (interactive) (find-file "~/org/book.org")))
+	      (lambda () (interactive) (find-file "~/org/book.org")))
 
 ;; 移除旧的org-mode 绑定
 (define-key org-mode-map (kbd "C-k") nil)
@@ -481,11 +480,11 @@
   (yas-global-mode 1))
 
 (global-set-key (kbd "C-c c")
-                'org-capture)
+		'org-capture)
 
 (setq org-todo-keyword-faces '(
-                               ("TODO" . (:foreground "steelBlue" :weight normal)) 
-                               ("DONE" . (:foreground "darkSlateGray" :weight normal)) ))
+			       ("TODO" . (:foreground "steelBlue" :weight normal)) 
+			       ("DONE" . (:foreground "darkSlateGray" :weight normal)) ))
 
 (defadvice org-capture-finalize 
     (after delete-capture-frame activate)  
@@ -550,11 +549,11 @@
   :config
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
   (setq web-mode-engines-alist
-        '(("django"    . "\\.html\\'")))
+	'(("django"    . "\\.html\\'")))
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-ac-sources-alist
-        '(("css" . (ac-source-css-property))
-          ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
+	'(("css" . (ac-source-css-property))
+	  ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
 
   (setq web-mode-enable-auto-closing t)
   (setq web-mode-enable-auto-quoting t))
@@ -631,8 +630,8 @@
 (require 'evil)
 (evil-mode -1)
 
-;;(setq evil-toggle-key "")     ; remove default evil-toggle-key C-z, manually setup later
-(setq evil-want-C-i-jump nil)   ; don't bind [tab] to evil-jump-forward
+;;(setq evil-toggle-key "")	; remove default evil-toggle-key C-z, manually setup later
+(setq evil-want-C-i-jump nil)	; don't bind [tab] to evil-jump-forward
 
 ;; remove all keybindings from insert-state keymap, use emacs-state when editing
 (setcdr evil-insert-state-map nil)
