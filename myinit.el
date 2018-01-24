@@ -1,3 +1,4 @@
+
 ;; (use-package org-bullets    ;; org-mode 美化
   ;;   :ensure t
   ;;   :config
@@ -42,37 +43,37 @@
   (defun load-if-exists (f)
     "load the elisp file only if it exists and is readable"
     (if (file-readable-p f)
-	(load-file f)))
+        (load-file f)))
 
   (load-if-exists "~/.emacs.d/myfiles/auto-save.el")
   (load-if-exists "~/.emacs.d/myfiles/tmp-test.el")
 
 (global-set-key (kbd "\e\em")
-	      (lambda () (interactive) (find-file "~/.emacs.d/myinit.org")))
+              (lambda () (interactive) (find-file "~/.emacs.d/myinit.org")))
 
 (global-set-key (kbd "\e\es")
-	      (lambda () (interactive) (find-file "~/scheduled/scheduled.org")))
+              (lambda () (interactive) (find-file "~/scheduled/scheduled.org")))
 
 (global-set-key (kbd "\e\ep")
-	      (lambda () (interactive) (find-file "~/org-my/projects.org")))
+              (lambda () (interactive) (find-file "~/org-my/projects.org")))
 
 (global-set-key (kbd "\e\ei")
-	      (lambda () (interactive) (find-file "~/org-my/idea.org")))
+              (lambda () (interactive) (find-file "~/org-my/idea.org")))
 
 (global-set-key (kbd "\e\el")
-	      (lambda () (interactive) (find-file "~/org-my/log.org")))
+              (lambda () (interactive) (find-file "~/org-my/log.org")))
 
 (global-set-key (kbd "\e\eb")
-	      (lambda () (interactive) (find-file "~/org-my/back.org")))
+              (lambda () (interactive) (find-file "~/org-my/back.org")))
 
 (global-set-key (kbd "\e\en")
-	      (lambda () (interactive) (find-file "~/org/note.org")))
+              (lambda () (interactive) (find-file "~/org/note.org")))
 
 (global-set-key (kbd "\e\ek")
-	      (lambda () (interactive) (find-file "~/org/keymap.org")))
+              (lambda () (interactive) (find-file "~/org/keymap.org")))
 
 (global-set-key (kbd "\e\eo")
-	      (lambda () (interactive) (find-file "~/org/book.org")))
+              (lambda () (interactive) (find-file "~/org/book.org")))
 
 ;; 移除旧的org-mode 绑定
 (define-key org-mode-map (kbd "C-k") nil)
@@ -170,6 +171,23 @@
 
   (setq initial-frame-alist (quote ((fullscreen . maximized))))  ;; 默认全屏
 
+;; 
+;; (if (display-graphic-p)
+;;     (progn
+;;       (setq initial-frame-alist
+;;             '(
+;;               (width . 106) ; chars
+;;               (height . 60) ; lines
+;;               ;;
+;;               ))
+;; 
+;;       (setq default-frame-alist
+;;             '(
+;;               (width . 106)
+;;               (height . 60)
+;;               ;;
+;;               ))))
+
 ;; 启动回到原来的界面
 ;;(require 'session)
 ;;(add-hook 'after-init-hook 'session-initialize)
@@ -232,6 +250,10 @@
     (highlight-parentheses-mode t)))
 
 (global-highlight-parentheses-mode t)
+
+;; 
+(setq linum-format "%d ")
+(setq linum-format "%4d \u2502 ")
 
 (defalias 'list-buffers 'ibuffer)              ;; 一直在找的buffer管理
 
@@ -480,11 +502,11 @@
   (yas-global-mode 1))
 
 (global-set-key (kbd "C-c c")
-		'org-capture)
+                'org-capture)
 
 (setq org-todo-keyword-faces '(
-			       ("TODO" . (:foreground "steelBlue" :weight normal)) 
-			       ("DONE" . (:foreground "darkSlateGray" :weight normal)) ))
+                               ("TODO" . (:foreground "steelBlue" :weight normal)) 
+                               ("DONE" . (:foreground "darkSlateGray" :weight normal)) ))
 
 (defadvice org-capture-finalize 
     (after delete-capture-frame activate)  
@@ -549,11 +571,11 @@
   :config
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
   (setq web-mode-engines-alist
-	'(("django"    . "\\.html\\'")))
+        '(("django"    . "\\.html\\'")))
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-ac-sources-alist
-	'(("css" . (ac-source-css-property))
-	  ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
+        '(("css" . (ac-source-css-property))
+          ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
 
   (setq web-mode-enable-auto-closing t)
   (setq web-mode-enable-auto-quoting t))
@@ -594,31 +616,6 @@
 (add-to-list 'org-structure-template-alist
     '("js" "#+BEGIN_SRC js\n?\n#+END_SRC" "<src lang=\"R\">\n?\n</src>"))
 
-;; author: pluskid
-;; 调用 stardict 的命令行接口来查辞典
-;; 如果选中了 region 就查询 region 的内容，
-;; 否则就查询当前光标所在的词
-(global-set-key [mouse-3] 'kid-star-dict);;鼠标右键
-(defun kid-star-dict ()
-  (interactive)
-  (let ((begin (point-min))
-        (end (point-max)))
-    (if mark-active
-        (setq begin (region-beginning)
-              end (region-end))
-      (save-excursion
-        (backward-word)
-        (mark-word)
-        (setq begin (region-beginning)
-              end (region-end))))
-    ;; 有时候 stardict 会很慢，所以在回显区显示一点东西
-    ;; 以免觉得 Emacs 在干什么其他奇怪的事情。
-    (message "searching for %s ..." (buffer-substring begin end))
-    (tooltip-show 
-     (shell-command-to-string 
-      (concat "sdcv -n " 
-              (buffer-substring begin end))))))
-
 (defun my-open-terminal ()
   "my-open-terminal"
   (interactive)
@@ -626,27 +623,27 @@
 
 (global-set-key (kbd "M-z") 'my-open-terminal)
 
-(add-to-list 'load-path "~/.emacs.d/myfiles/evil")
-(require 'evil)
-(evil-mode -1)
+;;(add-to-list 'load-path "~/.emacs.d/myfiles/evil")
+;;(require 'evil)
+;;(evil-mode -1)
 
-;;(setq evil-toggle-key "")	; remove default evil-toggle-key C-z, manually setup later
-(setq evil-want-C-i-jump nil)	; don't bind [tab] to evil-jump-forward
+;;;;(setq evil-toggle-key "")   ; remove default evil-toggle-key C-z, manually setup later
+;;(setq evil-want-C-i-jump nil) ; don't bind [tab] to evil-jump-forward
 
 ;; remove all keybindings from insert-state keymap, use emacs-state when editing
-(setcdr evil-insert-state-map nil)
+;;(setcdr evil-insert-state-map nil)
     
 ;; ESC to switch back normal-state
-(define-key evil-insert-state-map [escape] 'evil-normal-state)
+;;(define-key evil-insert-state-map [escape] 'evil-normal-state)
 
-;;(load-if-exists "~/.emacs.d/cnfonts/cnfonts-pkg.el")
-(load-if-exists "~/.emacs.d/cnfonts/cnfonts-ui.el")
-(load-if-exists "~/.emacs.d/cnfonts/cnfonts.el")
-(require 'cnfonts)
-;; 让 cnfonts 随着 Emacs 自动生效。
-(cnfonts-enable)
-;; 让 spacemacs mode-line 中的 Unicode 图标正确显示。
-(cnfonts-set-spacemacs-fallback-fonts)
+;;;;(load-if-exists "~/.emacs.d/cnfonts/cnfonts-pkg.el")
+;;(load-if-exists "~/.emacs.d/cnfonts/cnfonts-ui.el")
+;;(load-if-exists "~/.emacs.d/cnfonts/cnfonts.el")
+;;(require 'cnfonts)
+;;;; 让 cnfonts 随着 Emacs 自动生效。
+;;(cnfonts-enable)
+;;;; 让 spacemacs mode-line 中的 Unicode 图标正确显示。
+;;(cnfonts-set-spacemacs-fallback-fonts)
 
 ;;编辑字体及大小
 ;;M-x cnfonts-edit-profile-without-ui  然后C-c C-c测试

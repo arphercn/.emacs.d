@@ -1,5 +1,4 @@
 
-
 * Some Trick
 ** 通过init.el myinit.org可以完成配置加载, 出错时重启
 ** C-c C-c 失败时, rm -rf .emacs/elpa/org* 可解决
@@ -214,6 +213,23 @@
 
   (setq initial-frame-alist (quote ((fullscreen . maximized))))  ;; 默认全屏
 
+;; 
+;; (if (display-graphic-p)
+;;     (progn
+;;       (setq initial-frame-alist
+;;             '(
+;;               (width . 106) ; chars
+;;               (height . 60) ; lines
+;;               ;;
+;;               ))
+;; 
+;;       (setq default-frame-alist
+;;             '(
+;;               (width . 106)
+;;               (height . 60)
+;;               ;;
+;;               ))))
+
 ;; 启动回到原来的界面
 ;;(require 'session)
 ;;(add-hook 'after-init-hook 'session-initialize)
@@ -283,10 +299,14 @@
 
 (global-highlight-parentheses-mode t)
 
+;; 
+(setq linum-format "%d ")
+(setq linum-format "%4d \u2502 ")
+
 #+END_SRC
 
 #+RESULTS:
-: hs-show-all
+: %4d │ 
 
 * ace-window/counsel/ivy/swiper/avy/ag
 #+BEGIN_SRC emacs-lisp
@@ -736,38 +756,6 @@
     '("js" "#+BEGIN_SRC js\n?\n#+END_SRC" "<src lang=\"R\">\n?\n</src>"))
 #+END_SRC
 
-* stardict
-#+BEGIN_SRC emacs-lisp
-;; author: pluskid
-;; 调用 stardict 的命令行接口来查辞典
-;; 如果选中了 region 就查询 region 的内容，
-;; 否则就查询当前光标所在的词
-(global-set-key [mouse-3] 'kid-star-dict);;鼠标右键
-(defun kid-star-dict ()
-  (interactive)
-  (let ((begin (point-min))
-        (end (point-max)))
-    (if mark-active
-        (setq begin (region-beginning)
-              end (region-end))
-      (save-excursion
-        (backward-word)
-        (mark-word)
-        (setq begin (region-beginning)
-              end (region-end))))
-    ;; 有时候 stardict 会很慢，所以在回显区显示一点东西
-    ;; 以免觉得 Emacs 在干什么其他奇怪的事情。
-    (message "searching for %s ..." (buffer-substring begin end))
-    (tooltip-show 
-     (shell-command-to-string 
-      (concat "sdcv -n " 
-              (buffer-substring begin end))))))
-
-#+END_SRC
-
-#+RESULTS:
-: kid-star-dict
-
 * open-terminal
 #+BEGIN_SRC emacs-lisp
 
@@ -799,20 +787,34 @@
 #+END_SRC
 * 字体
 #+BEGIN_SRC emacs-lisp
-;;(load-if-exists "~/.emacs.d/cnfonts/cnfonts-pkg.el")
-(load-if-exists "~/.emacs.d/cnfonts/cnfonts-ui.el")
-(load-if-exists "~/.emacs.d/cnfonts/cnfonts.el")
-(require 'cnfonts)
-;; 让 cnfonts 随着 Emacs 自动生效。
-(cnfonts-enable)
-;; 让 spacemacs mode-line 中的 Unicode 图标正确显示。
-(cnfonts-set-spacemacs-fallback-fonts)
+;;;;(load-if-exists "~/.emacs.d/cnfonts/cnfonts-pkg.el")
+;;(load-if-exists "~/.emacs.d/cnfonts/cnfonts-ui.el")
+;;(load-if-exists "~/.emacs.d/cnfonts/cnfonts.el")
+;;(require 'cnfonts)
+;;;; 让 cnfonts 随着 Emacs 自动生效。
+;;(cnfonts-enable)
+;;;; 让 spacemacs mode-line 中的 Unicode 图标正确显示。
+;;(cnfonts-set-spacemacs-fallback-fonts)
 
 ;;编辑字体及大小
 ;;M-x cnfonts-edit-profile-without-ui  然后C-c C-c测试
 ;;| cnfonts-increase-fontsize | 增大字号     |
 ;;| cnfonts-decrease-fontsize | 减小字号     |
+
+
+
+;;中文与外文字体设置
+(defun set-font (english chinese english-size chinese-size)
+  (set-face-attribute 'default nil :font
+                      (format   "%s:pixelsize=%d"  english english-size))
+  (dolist (charset '(kana han symbol cjk-misc bopomofo))
+    (set-fontset-font (frame-parameter nil 'font) charset
+                      (font-spec :family chinese :size chinese-size))))
+
+(set-font   "WenQuanYi Zen Hei Mono" "WenQuanYi Zen Hei Mono" 17 17)
 #+END_SRC
+
+#+RESULTS:
 
 * ox-publish for blog
 #+BEGIN_SRC emacs-lisp
