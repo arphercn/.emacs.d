@@ -67,6 +67,9 @@
               (lambda () (interactive) (find-file "~/org-my/back.org")))
 
 (global-set-key (kbd "\e\en")
+              (lambda () (interactive) (find-file "~/note/")))
+
+(global-set-key (kbd "\e\ee")
               (lambda () (interactive) (find-file "~/org/note.org")))
 
 (global-set-key (kbd "\e\ek")
@@ -649,6 +652,18 @@
 ;;M-x cnfonts-edit-profile-without-ui  然后C-c C-c测试
 ;;| cnfonts-increase-fontsize | 增大字号     |
 ;;| cnfonts-decrease-fontsize | 减小字号     |
+
+
+
+;;中文与外文字体设置
+(defun set-font (english chinese english-size chinese-size)
+  (set-face-attribute 'default nil :font
+                      (format   "%s:pixelsize=%d"  english english-size))
+  (dolist (charset '(kana han symbol cjk-misc bopomofo))
+    (set-fontset-font (frame-parameter nil 'font) charset
+                      (font-spec :family chinese :size chinese-size))))
+
+(set-font   "WenQuanYi Zen Hei Mono" "WenQuanYi Zen Hei Mono" 17 17)
 
 ;; C-c C-e P x     (org-publish)
 ;; Prompt for a specific project and publish all files that belong to it. 

@@ -92,6 +92,9 @@
 		(lambda () (interactive) (find-file "~/org-my/back.org")))
 
   (global-set-key (kbd "\e\en")
+		(lambda () (interactive) (find-file "~/note/")))
+
+  (global-set-key (kbd "\e\ee")
 		(lambda () (interactive) (find-file "~/org/note.org")))
 
   (global-set-key (kbd "\e\ek")
@@ -102,6 +105,9 @@
 
 
 #+END_SRC
+
+#+RESULTS:
+| lambda | nil | (interactive) | (find-file ~/org/book.org) |
 
 * rebinding keys
 #+BEGIN_SRC emacs-lisp
@@ -279,6 +285,8 @@
   (global-hl-line-mode t)
 
   (global-linum-mode 1)           ;; 显示行号
+
+  (setq ring-bell-function 'ignore) ;; 去掉提示音
 
   ;;(set-face-attribute 'default nil :height 146)  ;; 字体大小
   ;;(setq-default line-spacing 2)                  ;; 行高
